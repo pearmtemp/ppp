@@ -8,7 +8,6 @@ msg_ok()   { echo -e "\e[1;32m[OK]\e[0m $1"; }
 msg_warn() { echo -e "\e[1;33m[WARN]\e[0m $1"; }
 msg_err()  { echo -e "\e[1;31m[ERR]\e[0m $1"; }
 
-# --- Variables ---
 ERP_USER="erpnext"
 ERP_HOME="/home/$ERP_USER"
 SITE_NAME="site1.local"
@@ -50,10 +49,11 @@ EOF
 systemctl restart mariadb
 msg_ok "MariaDB secured and configured"
 
-msg_info "Installing Node.js 18 LTS"
+msg_info "Installing Node.js 18 LTS and Yarn"
 curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 apt-get install -y nodejs
-msg_ok "Node.js installed"
+npm install -g yarn
+msg_ok "Node.js and Yarn installed"
 
 if ! id "$ERP_USER" &>/dev/null; then
   msg_info "Creating erpnext user"
